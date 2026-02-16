@@ -13,6 +13,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Camera.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FollowMuramasa.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -85,6 +90,13 @@
       <workItem from="1770028390159" duration="132000" />
       <workItem from="1770028584458" duration="651000" />
       <workItem from="1770031966483" duration="628000" />
+      <workItem from="1770057195830" duration="22027000" />
+      <workItem from="1770216529650" duration="3404000" />
+      <workItem from="1770220637166" duration="1000" />
+      <workItem from="1770220867100" duration="1000" />
+      <workItem from="1770220897745" duration="36000" />
+      <workItem from="1770222097666" duration="3616000" />
+      <workItem from="1770454892337" duration="12909000" />
     </task>
     <servers />
   </component>

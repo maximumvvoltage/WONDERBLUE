@@ -1,0 +1,1 @@
+﻿Come on, we won't be walking much longer. #speaker:■■■■■ #portrait: muramasa

@@ -4,6 +4,120 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [Header("Movement")]
+    public float runSpeed = 6f;
+    public float walkSpeed = 3f;
+    public float turnSpeed = 0.1f;
+    public float gravity = -9.81f;
+    
+    [Header("Camera")]
+    public Transform cameraTransform;
+    public Vector3 cameraOffset = new Vector3(0, 2, -5);
+    public float mouseSensitivity = 2f;
+    public float cameraCollisionRadius = 0.3f;
+    public float minCameraDistance = 0.5f;
+    
+    private CharacterController controller;
+    private Vector3 velocity;
+    private float cameraPitch = 0f;
+    private float cameraYaw = 0f;
+    private float currentCameraDistance;
+
+    private static Movement instance;
+    
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        controller = GetComponent<CharacterController>();
+        
+        if (cameraTransform == null)
+            cameraTransform = Camera.main.transform;
+        
+        Cursor.lockState = CursorLockMode.Locked;
+        currentCameraDistance = cameraOffset.magnitude;
+    }
+    
+    // Update is called once per frame
+    void Update()
+    {
+        /*if (DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            return;
+        }*/
+        HandleMovement();
+        HandleCamera();
+        
+    }
+    
+    void HandleMovement()
+    {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        
+        bool isWalking = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl); //using ctrl to toggle walking
+        float speed = isWalking ? walkSpeed : runSpeed;
+        
+        Vector3 forward = cameraTransform.forward;//move wherever the camera is looking
+        Vector3 right = cameraTransform.right;
+        forward.y = 0;
+        right.y = 0;
+        forward.Normalize();
+        right.Normalize();
+        
+        Vector3 moveDirection = (forward * v + right * h).normalized;
+        
+        // Move
+        if (moveDirection.magnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed);
+            controller.Move(moveDirection * speed * Time.deltaTime);
+        }
+        
+        // Gravity
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+        
+        if (controller.isGrounded && velocity.y < 0)
+            velocity.y = -2f;
+    }
+    
+    void HandleCamera()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        
+        cameraYaw += mouseX;
+        cameraPitch -= mouseY;
+        cameraPitch = Mathf.Clamp(cameraPitch, -40f, 80f);
+        
+        Quaternion rotation = Quaternion.Euler(cameraPitch, cameraYaw, 0);
+        Vector3 direction = rotation * Vector3.back;
+        Vector3 targetPos = transform.position + Vector3.up * cameraOffset.y;
+        
+        float desiredDistance = cameraOffset.magnitude;//checking if any meshes are in the way
+        RaycastHit hit;
+        
+        if (Physics.SphereCast(targetPos, cameraCollisionRadius, direction, out hit, desiredDistance))
+        {
+            currentCameraDistance = Mathf.Max(hit.distance - cameraCollisionRadius, minCameraDistance);
+        }
+        else
+        {
+            currentCameraDistance = Mathf.Lerp(currentCameraDistance, desiredDistance, Time.deltaTime * 5f);
+        }
+        
+        cameraTransform.position = targetPos + direction * currentCameraDistance;
+        cameraTransform.LookAt(targetPos);//positions the camera to the new position which you're looking at
+    }
+}
+
+
+/*using UnityEngine;
+
+[RequireComponent(typeof(CharacterController))]
+public class Movement : MonoBehaviour
+{
+    [Header("Movement")]
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
@@ -41,6 +155,10 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            return;
+        }
         HandleCamera();
         HandleMovement();
         HandleGravity();
@@ -124,4 +242,4 @@ public class Movement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-}
+}*/
