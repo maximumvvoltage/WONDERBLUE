@@ -128,7 +128,7 @@ public class DialogueManager : MonoBehaviour
 
         if (player != null)
         {
-            var move = player.GetComponent<Movement>();
+            var move = player.GetComponent<ShumIsMoving>();
             /*if (move != null) move.canMove = false;
 
             frozenPosition = player.transform.position;
@@ -156,7 +156,7 @@ public class DialogueManager : MonoBehaviour
 
         if (player != null)
         {
-            var move = player.GetComponent<Movement>();
+            var move = player.GetComponent<ShumIsMoving>();
             //if (move != null) move.canMove = true;
         }
     }
