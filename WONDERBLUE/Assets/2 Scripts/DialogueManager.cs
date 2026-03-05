@@ -21,13 +21,14 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Color normalChoiceColor = Color.white;
     [SerializeField] private Color highlightedChoiceColor = Color.yellow;
     private Story currentStory;
-
-
+    
     [Header("Portrait")]
     [SerializeField] private GameObject portraitImage;
     [SerializeField] private Animator portraitAnim;
     private const string speaker_tag = "speaker";
     private const string portrait_tag = "portrait";
+
+    public Stampcard stampcard;
 
     public bool dialogueIsPlaying { get; private set; }
 
@@ -276,15 +277,19 @@ public class DialogueManager : MonoBehaviour
                     break;
                 
             }
-
-        /*if (tag.StartsWith("emotion:"))
-        {
-            string emotion = tag.Replace("emotion:", "").Trim();
-            SetEmotion(emotion);
-            continue;
-        }*/
+            
+            if (tag == "trigger:show_stampcard") 
+            {
+                stampcard.ShowStampCard();
+            }
+            if (tag == "trigger:hide_stampcard") 
+            {
+                stampcard.HideStampCard();
+            }
         }
     }
+    
+    
 
     public void SetVariable(string variableName, object value)
     {
@@ -351,88 +356,3 @@ public class DialogueManager : MonoBehaviour
         }
     }
 }
-
-
-
-
-/*
- using TMPro;
-using UnityEngine;
-using Ink.Runtime;
-
-public class DialogueManager : MonoBehaviour
-{
-    private static DialogueManager instance;
-    private DialogueTrigger dialogueTrigger;
-    public KeyCode ContinueKey = KeyCode.Q;
-    
-    [Header("Dialogue UI")]
-    [SerializeField] private GameObject entireDialogueUI;
-    [SerializeField] private GameObject portraitImage;
-    [SerializeField] private TextMeshProUGUI dialogueText;
-    public TextMeshProUGUI nameText;
-    
-    private Story currentStory;
-    public bool currentlySpeaking;
-    
-
-    private void Awake()
-    {
-        instance = this;
-    }
-    private void Start()
-    {
-        nameText = GetComponent<TMPro.TextMeshProUGUI>();
-        currentlySpeaking = false;
-        entireDialogueUI.SetActive(false);
-    }
-
-    private void Update()
-    {
-        //nameText.text = dialogueTrigger.name;
-        
-        if (!currentlySpeaking)
-        {
-            return;
-        }
-        
-        if (currentStory.canContinue && Input.GetKeyDown(ContinueKey))
-        {
-            ContinueSpeakingMode();
-        }
-    }
-
-    public static DialogueManager GetInstance()
-    {
-        return instance;
-    }
-
-    public void BeginSpeaking(TextAsset inkJSON)
-    {
-        currentStory = new Story(inkJSON.text);
-        currentlySpeaking = true;
-        entireDialogueUI.SetActive(true);
-        
-        ContinueSpeakingMode();
-    }
-
-    private void ContinueSpeakingMode()
-    {
-        if (currentStory.canContinue)
-        {
-            dialogueText.text = currentStory.Continue();
-        }
-        else
-        {
-            ExitSpeakingMode();
-        }
-    }
-    
-    private void ExitSpeakingMode()
-    {
-        currentlySpeaking = false;
-        entireDialogueUI.SetActive(false);
-        dialogueText.text = "";
-    }
-}
-*/
