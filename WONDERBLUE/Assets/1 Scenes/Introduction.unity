@@ -665,7 +665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 241270618}
   - component: {fileID: 241270617}
-  - component: {fileID: 241270616}
+  - component: {fileID: 241270619}
   m_Layer: 0
   m_Name: Sound FX Manager
   m_TagString: Untagged
@@ -673,18 +673,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &241270616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 241270615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb533a44ac6ed504f9ea5150cfa773df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &241270617
 AudioSource:
   m_ObjectHideFlags: 0
@@ -797,6 +785,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &241270619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241270615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddeeb3d8d57177d429d2cc426afdc3ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &243787286
 GameObject:
   m_ObjectHideFlags: 0
