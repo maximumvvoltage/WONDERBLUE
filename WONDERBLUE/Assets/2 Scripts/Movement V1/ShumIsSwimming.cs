@@ -36,30 +36,22 @@ public class ShumIsSwimming : MonoBehaviour
 
     private void HandleSurfaceLogic()
     {
-        // 1. Calculate the exact Y position we WANT to be at
+        //calculates the exact Y position we WANT to be at
         float targetY = waterSurfaceY - (controller.height * (1f - visibleHeight));
-    
-        // 2. Calculate the difference between where we are and where we want to be
-        float diff = targetY - transform.position.y;
-
-        // 3. Instead of forcing position, we create a velocity that pulls us there
-        // The '10f' acts as the strength of the buoyancy spring
+        float diff = targetY - transform.position.y;//calculates the difference between where we are and where we wanna be
+        
         surfaceVerticalVelocity = diff * 10f;
-
-        // Horizontal Movement
         MovePlayer(surfaceSpeed);
+        controller.Move(new Vector3(0, surfaceVerticalVelocity, 0) * Time.deltaTime);//applies the buoyancy through the controller
 
-        // Apply the buoyancy velocity through the Controller
-        controller.Move(new Vector3(0, surfaceVerticalVelocity, 0) * Time.deltaTime);
-
-        // Dive Charge (Right Mouse Button)
+        //dives if player holds down rmb
         if (Input.GetMouseButton(1))
         {
             diveTimer += Time.deltaTime;
             if (diveTimer >= diveHoldThreshold) 
             { 
                 isSubmerged = true; 
-                surfaceVerticalVelocity = 0; // Reset when diving
+                surfaceVerticalVelocity = 0; //reset after she dives
                 diveTimer = 0; 
             }
         }
@@ -86,7 +78,6 @@ public class ShumIsSwimming : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         
-        // Use camera's flattened forward for swimming direction
         Vector3 camForward = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up).normalized;
         Vector3 camRight = Vector3.ProjectOnPlane(Camera.main.transform.right, Vector3.up).normalized;
         

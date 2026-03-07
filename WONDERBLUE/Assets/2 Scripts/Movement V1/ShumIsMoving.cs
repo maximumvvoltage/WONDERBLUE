@@ -50,8 +50,7 @@ public class ShumIsMoving : MonoBehaviour
 
         if (inputDir.magnitude >= 0.1f)
         {
-            // Calculate target angle based on input + camera rotation
-            float targetAngle = Mathf.Atan2(inputDir.x, inputDir.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(inputDir.x, inputDir.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;//calculates the target angle based on input + camera rotation
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationVelocity, rotationSmoothTime);
             transform.rotation = Quaternion.Euler(0, angle, 0);
 
@@ -72,8 +71,7 @@ public class ShumIsMoving : MonoBehaviour
     {
         if (controller.isGrounded)
         {
-            // Physics formula: velocity = sqrt(height * -2 * gravity)
-            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity); //basically velocity = square root of height x -2 x gravity
         }
     }
 

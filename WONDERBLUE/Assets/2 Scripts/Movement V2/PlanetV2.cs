@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlanetGravity : MonoBehaviour
+public class PlanetV2 : MonoBehaviour
 { // basically disables the standard Unity gravity and pulls anything with a Rigidbody towards the center.
     public float gravity = -10f;
 
@@ -8,12 +8,10 @@ public class PlanetGravity : MonoBehaviour
     {
         Vector3 gravityUp = (playerTransform.position - transform.position).normalized;
         Vector3 localUp = playerTransform.up;
-
-        // Apply force to the player's rigidbody
-        playerTransform.GetComponent<Rigidbody>().AddForce(gravityUp * gravity);
-
-        // Smoothly rotate the player to align with the planet surface
-        Quaternion targetRotation = Quaternion.FromToRotation(localUp, gravityUp) * playerTransform.rotation;
+        
+        playerTransform.GetComponent<Rigidbody>().AddForce(gravityUp * gravity);//applies force to the player rigidbody
+        
+        Quaternion targetRotation = Quaternion.FromToRotation(localUp, gravityUp) * playerTransform.rotation; //smoothes the player so they dont lag on the planet surface
         playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, 50 * Time.deltaTime);
     }
 }

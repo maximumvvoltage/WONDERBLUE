@@ -25,16 +25,13 @@ public class ShumCameraController : MonoBehaviour
     {
         if (target == null) return;
 
-        // 1. MouseLook Logic
         mouseX += Input.GetAxis("Mouse X") * mouseSensitivity;
         mouseY -= Input.GetAxis("Mouse Y") * mouseSensitivity;
-        mouseY = Mathf.Clamp(mouseY, -35, 60); // Clamp to prevent flipping over
+        mouseY = Mathf.Clamp(mouseY, -35, 60); // clamp is also put in so she doesnt flip over
 
         currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(mouseY, mouseX), ref rotationSmoothVelocity, rotationSmoothTime);
         transform.eulerAngles = currentRotation;
-
-        // 2. Collision Logic
-        Vector3 desiredPosition = target.position - transform.forward * distance;
+        Vector3 desiredPosition = target.position - transform.forward * distance; // recalculates the desired position if she crashes into anything
         
         if (Physics.SphereCast(target.position, collisionPadding, -transform.forward, out RaycastHit hit, distance, collisionLayers))
         {
