@@ -1,17 +1,15 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using TMPro;
-using Unity.VisualScripting;
 
 public class StampButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Button Settings")]
     private Button stampButton;
+    public bool stampComplete;
     public Image buttonImage;
-    private bool stampComplete;
-    public bool stampStarted;
 
     [Header("Sprites")]
     public Sprite spritePending;
@@ -19,67 +17,32 @@ public class StampButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Sprite spriteClaim;
     public Sprite spriteComplete;
 
-    [Header("Text Assets")]
-    public TextMeshProUGUI locationName;
-    public TextMeshProUGUI locationDesc;
-    public TextMeshProUGUI stampcardInfo;
-    
-    
     [Header("Everything Else")]
+    [SerializeField] private Stampcard stampcard;
     public QuestSO questSO;
-    [SerializeField] private Transform waypoint;
     public bool questStarted;
     
-    public static event Action<StampButton> OnStampActivated;
     public Transform Waypoint => waypoint;
+    [SerializeField] private Transform waypoint; //waypoints connected to each individual button
+    public static event Action<StampButton> OnStampActivated;
 
+    public static void InvokeOnStampActivated(StampButton stamp)
+    {
+        OnStampActivated?.Invoke(stamp);
+    }
+    
     private void Start()
     {
         buttonImage.sprite = spritePending;
     }
 
-    private void Update()
-    {
-        if (questSO.questComplete && !stampComplete && buttonImage.sprite != spriteClaim)
-        {
-            buttonImage.sprite = spriteClaim;
-        }
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
-        stampcardInfo.text = questSO.questDescription;
+        stampcard.stampcardInfo.text = questSO.questDescription;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        stampcardInfo.text = " ";
-    }
-
-    public void AmendQuest()
-    {
-        if (stampComplete)
-            return;
-
-        stampcardInfo.text = questSO.questDescription;
-
-        if (questSO.questComplete && buttonImage.sprite == spriteClaim)
-        {
-            buttonImage.sprite = spriteComplete; //once the stamp is claimed, clear the target so it doesnt continue pointing to the quest area
-            stampComplete = true;
-        }
-
-        
-        else if (!questSO.questComplete)
-        {
-            locationName.text = questSO.questName;
-            locationDesc.text = questSO.questDescription;
-                
-            OnStampActivated?.Invoke(this);
-            stampStarted = true;
-            stampcardInfo.text = questSO.questDescription;
-            questSO.questComplete = false;
-            buttonImage.sprite = spriteStarted; //if the quest is not yet complete, set the target to the questTarget in the SO 
-        }
+        stampcard.stampcardInfo.text = " ";
     }
 }

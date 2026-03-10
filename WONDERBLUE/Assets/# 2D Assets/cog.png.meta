@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5167eb9ec9e7fd9488d09fcc5b882728
+guid: 25c5f298c20d5ed4d839bca16403f9ef
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: locator_0
+      name: cog_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 156
-        height: 197
+        width: 232
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,20 +112,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb83a7e67f3fcbf4c93ba079d91696fb
-      internalID: 332018645
+      spriteID: 14a6f8813fc02be449efe471c83413bd
+      internalID: 800228230
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: locator_1
+      name: cog_1
       rect:
         serializedVersion: 2
-        x: 156
+        x: 232
         y: 0
-        width: 156
-        height: 197
+        width: 232
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb8fd3423e0bef64cba953bc805ede02
-      internalID: 1805734296
+      spriteID: 30d706d25e1fe66448b90cc69bb3d09d
+      internalID: -1145469185
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: locator_2
+      name: cog_2
       rect:
         serializedVersion: 2
-        x: 312
+        x: 464
         y: 0
-        width: 156
-        height: 197
+        width: 232
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f63fcb8ed2e775848b42051ff8f70a00
-      internalID: -1370707911
+      spriteID: e7e4246a7bfd26e48899961b393d0a2c
+      internalID: 947815810
       vertices: []
       indices: 
       edges: []
@@ -166,7 +166,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 98bb132f0f153b848a820a6131ffe26a
+    spriteID: 363d1ef250ff3654bbaf214358ce79ce
     internalID: 0
     vertices: []
     indices: 
@@ -176,9 +176,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      locator_0: 332018645
-      locator_1: 1805734296
-      locator_2: -1370707911
+      cog_0: 800228230
+      cog_1: -1145469185
+      cog_2: 947815810
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -102,8 +102,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 138
-        height: 176
+        width: 168
+        height: 191
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -122,10 +122,10 @@ TextureImporter:
       name: Compass_1
       rect:
         serializedVersion: 2
-        x: 138
+        x: 168
         y: 0
-        width: 138
-        height: 176
+        width: 168
+        height: 191
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,10 +144,10 @@ TextureImporter:
       name: Compass_2
       rect:
         serializedVersion: 2
-        x: 276
+        x: 336
         y: 0
-        width: 138
-        height: 176
+        width: 168
+        height: 191
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

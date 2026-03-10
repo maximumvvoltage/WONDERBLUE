@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: cfb0f809cc561244c89e3ee46cf8de18
+guid: 317c009d0ced3f44a9bc90d04f6ff021
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -34,11 +34,11 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
+    wrapU: 0
+    wrapV: 0
     wrapW: 0
   nPOTScale: 0
   lightmap: 0
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pointer_0
+      name: all quests_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 86
-        height: 48
+        width: 234
+        height: 236
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,20 +112,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 166f5949201763341b355b2642617b90
-      internalID: 1020100174
+      spriteID: c7333dd4569eab3419badab757f95737
+      internalID: -587603135
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pointer_1
+      name: all quests_1
       rect:
         serializedVersion: 2
-        x: 86
+        x: 234
         y: 0
-        width: 86
-        height: 48
+        width: 234
+        height: 236
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9b4c177c3cb78045ac9a92e75b6e502
-      internalID: -1740581018
+      spriteID: 145f45e990798ae4c941503e926e857f
+      internalID: 266108001
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pointer_2
+      name: all quests_2
       rect:
         serializedVersion: 2
-        x: 172
+        x: 468
         y: 0
-        width: 86
-        height: 48
+        width: 234
+        height: 236
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8d14997bc6de1948a5dce3213ab9615
-      internalID: 1040481224
+      spriteID: c2603eda5a01cfd43b66acae0b1a8b74
+      internalID: -1673344050
       vertices: []
       indices: 
       edges: []
@@ -166,7 +166,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f1399c321073f9543af60a92efa212c6
+    spriteID: 8303ef07b9773c946b43e4e76d755360
     internalID: 0
     vertices: []
     indices: 
@@ -176,9 +176,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      pointer_0: 1020100174
-      pointer_1: -1740581018
-      pointer_2: 1040481224
+      all quests_0: -587603135
+      all quests_1: 266108001
+      all quests_2: -1673344050
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

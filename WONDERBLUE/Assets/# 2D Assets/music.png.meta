@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 5167eb9ec9e7fd9488d09fcc5b882728
+guid: b550cee92e176e04197c3def2bab4f1c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,8 +37,8 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
+    wrapU: 0
+    wrapV: 0
     wrapW: 0
   nPOTScale: 0
   lightmap: 0
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: locator_0
+      name: music_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 156
-        height: 197
+        height: 151
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,20 +112,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb83a7e67f3fcbf4c93ba079d91696fb
-      internalID: 332018645
+      spriteID: c43431cf26e66c04380013134f38508d
+      internalID: -2033276267
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: locator_1
+      name: music_1
       rect:
         serializedVersion: 2
         x: 156
         y: 0
         width: 156
-        height: 197
+        height: 151
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb8fd3423e0bef64cba953bc805ede02
-      internalID: 1805734296
+      spriteID: 2f4be2c90897f3a42834869c6c6f1e0e
+      internalID: 1327017734
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: locator_2
+      name: music_2
       rect:
         serializedVersion: 2
         x: 312
         y: 0
         width: 156
-        height: 197
+        height: 151
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f63fcb8ed2e775848b42051ff8f70a00
-      internalID: -1370707911
+      spriteID: 1a5182d27be23c94e801ce2d5053f124
+      internalID: -396630999
       vertices: []
       indices: 
       edges: []
@@ -166,7 +166,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 98bb132f0f153b848a820a6131ffe26a
+    spriteID: effe77ceeb20e9f4391d70e8de8e464e
     internalID: 0
     vertices: []
     indices: 
@@ -176,9 +176,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      locator_0: 332018645
-      locator_1: 1805734296
-      locator_2: -1370707911
+      music_0: -2033276267
+      music_1: 1327017734
+      music_2: -396630999
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

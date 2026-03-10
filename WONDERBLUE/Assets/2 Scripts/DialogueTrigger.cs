@@ -12,7 +12,7 @@ public class DialogueTrigger : MonoBehaviour
 	[Header("Ink")]
 	[SerializeField] private TextAsset inkJSON;
 
-	private bool isInRange = false;
+	[SerializeField] private bool isInRange = false;
 	private bool hasPlayed = false;
 
 	void Start()
@@ -22,10 +22,6 @@ public class DialogueTrigger : MonoBehaviour
 
 	void Update()
 	{
-
-		//if (hasPlayed) return;
-
-
 		if (visualCue != null)
 		{
 			if (isInRange && !DialogueManager.GetInstance().dialogueIsPlaying)

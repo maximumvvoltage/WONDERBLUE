@@ -14,13 +14,19 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI displayNameText;
     [SerializeField] private GameObject choicesContainer;
-    [SerializeField] private Button choiceButtonPrefab;
-    
-    [SerializeField] private GameObject player;
+    [SerializeField] private Button choiceButtonPrefab;   
     private int selectedChoiceIndex = 0;
+    
+    [Header("Player")]
+    [SerializeField] private GameObject player;
+    [SerializeField] private Rigidbody playerRigidbody;
+    private PlanetWalkingV2 playerMovement;
+    private Vector3 frozenPosition;
+    private Quaternion frozenRotation;
+
     [SerializeField] private Color normalChoiceColor = Color.white;
     [SerializeField] private Color highlightedChoiceColor = Color.yellow;
-    private Story currentStory;
+    public Story currentStory;
     
     [Header("Portrait")]
     [SerializeField] private GameObject portraitImage;
@@ -35,16 +41,15 @@ public class DialogueManager : MonoBehaviour
     private static DialogueManager instance;
     private List<Button> choiceButtons = new List<Button>();
 
-    private Vector3 frozenPosition;
-    private Quaternion frozenRotation;
-
     private void Awake()
     {
-        if (instance != null)
-        {
-            Debug.LogWarning("Multiple instances of DialogueManager detected.");
-        }
         instance = this;
+        playerRigidbody = player.GetComponent<Rigidbody>();
+        
+        playerMovement = player.GetComponentInChildren<PlanetWalkingV2>();
+    
+        if (playerMovement == null)
+            Debug.LogError("PlayerV2 not found!");
     }
 
     public static DialogueManager GetInstance()
@@ -57,6 +62,9 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialogueUI.SetActive(false);
+        
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     // Update is called once per frame
@@ -64,10 +72,10 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueIsPlaying && player != null)
         {
-            player.transform.position = frozenPosition;
-            //player.transform.rotation = frozenRotation;
+            playerMovement.enabled = false; //dont move (cause the player ended up sinking to 0,0,0 when they spoke to ANYONE no matter who)
+            Cursor.lockState = CursorLockMode.None; //relock the cusor since the whole movement script gets disabled
         }
-
+        
         if (!dialogueIsPlaying)
         {
             return;
@@ -124,16 +132,12 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = true;
         dialogueUI.SetActive(true);
         showPortrait();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
 
         if (player != null)
         {
             var move = player.GetComponent<ShumIsMoving>();
-            /*if (move != null) move.canMove = false;
-
-            frozenPosition = player.transform.position;
-            frozenRotation = player.transform.rotation;*/
+            playerMovement.enabled = false;
+            playerRigidbody.constraints = RigidbodyConstraints.FreezePosition; //if you'e talking to someone, freeze
         }
         if (currentStory.canContinue)
         {
@@ -141,7 +145,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-
+            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 
@@ -151,14 +155,14 @@ public class DialogueManager : MonoBehaviour
         dialogueUI.SetActive(false);
         hidePortrait();
         dialogueText.text = "";
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
         ClearChoices();
 
         if (player != null)
         {
             var move = player.GetComponent<ShumIsMoving>();
-            //if (move != null) move.canMove = true;
+            playerMovement.enabled = true;
+            playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation; // no longer speaking to them means you can move now
+            
         }
     }
 
