@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945e27cc49de2904f957218c841f267a, type: 3}
   m_Name: Quest2
   m_EditorClassIdentifier: 
-  questName: Check out the commotion
+  questName: Find Angus
   questDescription: Looks like somebody needs help...Go and see what the commotion
     is all about!
   questComplete: 0
-  questTarget: {fileID: 7753716206639705593, guid: 53b55158554ee204e841d8afd784e3d8, type: 3}

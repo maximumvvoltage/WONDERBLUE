@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 
 public class Stampcard : MonoBehaviour
-{ //STAMPCARD IS PURELY VISUAL; IT HANDLES THE PARENT OF THE BUTTONS, AND CONTROLLING WHEN THE MENU SHOULD BE SHOWN AND HIDDEN.
+{ 
+    //STAMPCARD IS PURELY VISUAL; IT HANDLES THE PARENT OF THE BUTTONS, AND CONTROLLING WHEN THE MENU SHOULD BE SHOWN AND HIDDEN.
     
     [Header("Scripts")]
     [SerializeField] private DialogueManager dialogueManager;
@@ -14,7 +13,8 @@ public class Stampcard : MonoBehaviour
     
     [Header("Animators")]
     public Animator npcInteractionAnimator;
-    public Animator questObjects;
+    public Animator questAnim;
+    private bool questObjectsVisible = false;
     
     [Header("GameObjects & Transforms")]
     public GameObject stampCard;
@@ -26,20 +26,59 @@ public class Stampcard : MonoBehaviour
     public TextMeshProUGUI stampcardInfo;
     
     public bool questComplete;
-    public StampStatus stampStatus; //the public enum
+    public StampStatus stampStatus = StampStatus.Started; //even if the stamp hasn't started yet, the button will start 
+                                                          //looking like its pending, so that on the first click, all the quest
     
     public enum StampStatus
     {
-        NotStarted,
         Started,
         Claimable,
         Completed
     }
 
+    void Start()
+    {
+        RectTransform rectTrans = GetComponent<RectTransform>();
+    }
+
+    void Update()
+    {
+        if (!dialogueManager.dialogueIsPlaying && 
+            (stampStatus == StampStatus.Started || stampStatus == StampStatus.Claimable))
+        {
+            if (!questObjectsVisible) //only calling if not already open
+            {
+                questObjectsVisible = true;
+                ShowQuestObjects();
+            }
+        }
+        else if (dialogueManager.dialogueIsPlaying)
+        {
+            if (questObjectsVisible) //only call if not already closed
+            {
+                questObjectsVisible = false;
+                HideQuestObjects();
+            }
+        }
+    }
+    //------- show / hide quest objects
+    public void ShowQuestObjects()
+    {
+        questAnim.Play("EnterQuestObjets");
+        Debug.Log("opened");
+    }
+    public void HideQuestObjects()
+    {
+        questAnim.Play("ExitQuestObjets");
+        Debug.Log("closed");
+    }
+    
+    //----- show / hide stampcard
+
     public void ShowStampCard() 
     {
         stampCard.SetActive(true);
-        npcInteractionAnimator.Play("Hide-NPC-Interaction");
+        npcInteractionAnimator.Play("Hide-NPC-Dialogue");
         npcInteractionAnimator.SetTrigger("Show");
         dialogueUI.SetActive(false);
     }
@@ -50,75 +89,63 @@ public class Stampcard : MonoBehaviour
         dialogueUI.SetActive(true); 
         stampCard.SetActive(false);
     }
-
-    /*public void ShowQuestObjects()
+    
+    //------ setting the stamp that the game gets all its most updated info from
+    
+    public void SetActiveButton(StampButton button)
     {
-        if (dialogueManager.currentStory.canContinue == false && StampStatus.Started == stampStatus || StampStatus.Claimable == stampStatus)
-        {
-            questObjects.Play("EnterQuestObjets");
-        }
-
-        if(StampStatus.Completed == stampStatus || dialogueManager.dialogueIsPlaying)
-        {
-            questObjects.Play("ExitQuestObjets");
-        }
-    }*/
+        stampButton = button;
+    }
+    
+    //-------- the infamous AmendQuest
 
     public void AmendQuest()
     {
         if (stampButton.stampComplete)
             return;
-        
-        if (stampButton.questSO.questComplete && stampStatus == StampStatus.Claimable) 
-        {
-            stampButton.buttonImage.sprite = stampButton.spriteClaim;
-        }
 
         stampcardInfo.text = stampButton.questSO.questDescription;
 
         switch (stampStatus)
         {
-            case StampStatus.NotStarted:
-                
-                stampStatus = StampStatus.Started;
-                stampButton.buttonImage.sprite = stampButton.spritePending;
-                break;
                 
             case StampStatus.Started:
                 
                 stampStatus = StampStatus.Started;
+                stampButton.buttonImage.sprite = stampButton.spriteStarted;
                 stampButton.questSO.questComplete = false;
-                
-                questObjects.Play("EnterQuestObjets");
 
                 locationName.text = stampButton.questSO.questName; //the location name 
                 locationDesc.text = stampButton.questSO.questDescription;
                 stampcardInfo.text = stampButton.questSO.questDescription;
                 
-                stampButton.buttonImage.sprite = stampButton.spriteStarted;
+                ShowQuestObjects();
                 StampButton.InvokeOnStampActivated(stampButton);
+                
                 break;
-            
+
             case StampStatus.Claimable:
+
+                if (!stampButton.questSO.questComplete)
+                    return;
                 
                 stampStatus = StampStatus.Claimable;
-                stampButton.questSO.questComplete = true;
-                
+                stampButton.buttonImage.sprite = stampButton.spriteClaim;
                 locationName.text = "Talk to Mawiri";
                 locationDesc.text = "Task complete! Go back to Mawiri to claim your stamp!";
                 
-                stampButton.buttonImage.sprite = stampButton.spriteClaim;
                 break;
             
             case StampStatus.Completed:
+
+                if (stampStatus != StampStatus.Claimable)
+                    return;
                 
                 stampStatus = StampStatus.Completed;
                 stampButton.buttonImage.sprite = stampButton.spriteComplete;
+                stampButton.questSO.questComplete = true;
+                HideQuestObjects();
                 
-                questObjects.Play("ExitQuestObjets");
-                
-                stampButton.questSO.questComplete = stampButton.spriteComplete;
-
                 break;
         }
     }

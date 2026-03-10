@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -18,7 +17,7 @@ public class StampButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Sprite spriteComplete;
 
     [Header("Everything Else")]
-    [SerializeField] private Stampcard stampcard;
+    private Stampcard stampcard;
     public QuestSO questSO;
     public bool questStarted;
     
@@ -34,7 +33,10 @@ public class StampButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private void Start()
     {
         buttonImage.sprite = spritePending;
+        stampcard = FindObjectOfType<Stampcard>();
     }
+    
+    // --------- mouse activation!
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -44,5 +46,11 @@ public class StampButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerExit(PointerEventData eventData)
     {
         stampcard.stampcardInfo.text = " ";
+    }
+    
+    public void OnButtonPressed()
+    {
+        stampcard.SetActiveButton(this);
+        stampcard.AmendQuest();
     }
 }

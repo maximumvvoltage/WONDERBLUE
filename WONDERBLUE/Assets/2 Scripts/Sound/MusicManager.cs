@@ -24,6 +24,8 @@ public class MusicManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        musicPaused = true; // DEBUG PAUSE SO THAT I DONT HAVE TO HEAR IT EVERY TIME
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,7 +39,7 @@ public class MusicManager : MonoBehaviour
         musicImageIcon.GetComponent<Image>();
         musicImageIcon.sprite = musicOn;
 
-        musicPaused = false;
+        musicPaused = true; // DEBUG PAUSE SO THAT I DONT HAVE TO HEAR IT EVERY TIME
     }
 
     public static void SetVolume(float volume)

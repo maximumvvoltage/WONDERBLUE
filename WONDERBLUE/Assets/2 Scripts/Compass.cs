@@ -49,7 +49,7 @@ public class CompassUI : MonoBehaviour
         if (dir.sqrMagnitude < 0.001f) return;
 
         float distance = Vector3.Distance(player.position, currentWaypoint.position); //takes the distance between the player and the waypoit and turns it into a float
-        needleText.text = Mathf.RoundToInt(distance) + "m"; //prints this on the text underneath the needle (ASK SOMEONE HOW TO NORMALIZE IT TO USE WITHOUT A DECIMAL POINT
+        needleText.text = Mathf.RoundToInt(distance) + " METERS AWAY"; //prints this on the text underneath the needle (ASK SOMEONE HOW TO NORMALIZE IT TO USE WITHOUT A DECIMAL POINT
         if (distance <= 8f)
         {
             needleText.text = ("Arrived!");//the player never actually "arrives", and they usually stay stuck at 3 meters left
