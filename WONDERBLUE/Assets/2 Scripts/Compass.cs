@@ -5,18 +5,12 @@ using UnityEngine.UI;
 public class CompassUI : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Image needleImage;
+    [SerializeField] private Transform duck;
     [SerializeField] private TextMeshProUGUI needleText;
     [SerializeField] private Transform player;
     [SerializeField] private float rotationSpeed = 0f;
-    
-    private RectTransform needleRect;
-    private Transform currentWaypoint;
 
-    private void Awake()
-    {
-        needleRect = needleImage.GetComponent<RectTransform>();
-    }
+    private Transform currentWaypoint;
 
     private void OnEnable()
     {
@@ -31,36 +25,37 @@ public class CompassUI : MonoBehaviour
     private void Update()
     {
         if (currentWaypoint != null)
-            RotateNeedle();
+            RotateDuck();
     }
 
     public void HandleStampActivated(StampButton button)
     {
-        currentWaypoint = button.Waypoint; //the word Waypoint has an error
+        currentWaypoint = button.Waypoint;
     }
 
-    private void RotateNeedle()
+    private void RotateDuck()
     {
         Vector3 toWaypoint = currentWaypoint.position - player.position;
-        Vector2 dir = new Vector2(toWaypoint.x, toWaypoint.z); //makes a topdown perspective = the vector values of 'direction' is equal to
-                                                               //the position of the waypoint, relative to the position of the player,
-                                                               // across the x and z axis, to keep it flat.
+        toWaypoint.y = 0f; // keep rotation flat on the XZ plane so the duck doesn't tilt up/down
 
-        if (dir.sqrMagnitude < 0.001f) return;
+        if (toWaypoint.sqrMagnitude < 0.001f) return;
 
-        float distance = Vector3.Distance(player.position, currentWaypoint.position); //takes the distance between the player and the waypoit and turns it into a float
-        needleText.text = Mathf.RoundToInt(distance) + " METERS AWAY"; //prints this on the text underneath the needle (ASK SOMEONE HOW TO NORMALIZE IT TO USE WITHOUT A DECIMAL POINT
+        float distance = Vector3.Distance(player.position, currentWaypoint.position);
+        needleText.text = Mathf.RoundToInt(distance) + " METERS AWAY";
         if (distance <= 8f)
         {
-            needleText.text = ("Arrived!");//the player never actually "arrives", and they usually stay stuck at 3 meters left
+            needleText.text = ("Arrived!"); //the player never actually "arrives", and they usually stay stuck at 3 meters left
         }
 
-        float targetAngle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+        // Convert the world-space direction into the duck's parent (camera) local space,
+        // so the rotation isn't overridden by the camera moving/rotating
+        Vector3 localDirection = duck.parent.InverseTransformDirection(toWaypoint);
 
-        float currentAngle = needleRect.localEulerAngles.z;
-        float newAngle = rotationSpeed <= 0f ? -targetAngle : Mathf.MoveTowardsAngle(currentAngle, -targetAngle, rotationSpeed * Time.deltaTime);
-        //ternary operator spotted?! thank u stack overflow. i still couldnt tell you how it actually works
-        
-        needleRect.localEulerAngles = new Vector3(0f, 0f, newAngle);
+        Quaternion targetRotation = Quaternion.LookRotation(localDirection);
+
+        if (rotationSpeed <= 0f)
+            duck.localRotation = targetRotation;
+        else
+            duck.localRotation = Quaternion.RotateTowards(duck.localRotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }

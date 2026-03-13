@@ -6,7 +6,7 @@
 	I'd like to see my stamp card, please! #speaker:Shum #portrait:shum-happy
 	One stamp card for the lady! #speaker:Mawiri #portrait:frog 
 	#trigger:show_stampcard
-	Don't slip! #speaker:Mawiri #portrait:frog 
+	Don't slip! #speaker:Mawiri #portrait:frog
 	-> END
 
 + [Goodbye!]

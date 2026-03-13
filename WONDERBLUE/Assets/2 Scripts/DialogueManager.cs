@@ -35,6 +35,7 @@ public class DialogueManager : MonoBehaviour
     private const string portrait_tag = "portrait";
 
     public Stampcard stampcard;
+    public LostAndFound lostnfound;
 
     public bool dialogueIsPlaying { get; private set; }
 
@@ -289,6 +290,11 @@ public class DialogueManager : MonoBehaviour
             if (tag == "trigger:hide_stampcard") 
             {
                 stampcard.HideStampCard();
+            }
+            
+            if (tag == "trigger:show_lost-and-found") 
+            {
+                lostnfound.ShowLostAndFound();
             }
         }
     }

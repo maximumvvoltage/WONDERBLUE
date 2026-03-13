@@ -1,25 +1,35 @@
-using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlanetWalkingV2 : MonoBehaviour
 {
+    [Header("Player Movement")]
     public float moveSpeed = 8f;
     public float rotationSpeed = 15f;
     public float jumpForce = 7f;
-    public PlanetV2 planet;
     
+    [Header("Selectable Objects")]
+    public List<GameObject> selectableObjects = new List<GameObject>();
+    public float interactRange = 10f;
+    public LayerMask selectableLayer;
+    
+    [Header("Sound")] 
+    public bool isPlayingFootsteps;
+    public float footstepSpeed = 0.5f;
+ 
+    // ----- Miscellaneous
+    public PlanetV2 planet;
+    private Camera cam;
     [SerializeField] private GameManager gameManager;
     private Rigidbody rb;
     private Vector3 moveInput;
     private bool isGrounded;
     private bool isFootstepInvokeRunning; // prevents InvokeRepeating from stacking if called every FixedUpdate frame
-
-    [Header("Sound")] 
-    public bool isPlayingFootsteps;
-    public float footstepSpeed = 0.5f;
     
     void Start()
     {
+        cam = Camera.main;
+        
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -36,6 +46,11 @@ public class PlanetWalkingV2 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            TrySelectObject();
         }
     }
     
@@ -70,6 +85,8 @@ public class PlanetWalkingV2 : MonoBehaviour
             StopFootsteps();
         }
     }
+    
+    // --------- SOUND SECTION
 
     void PlayFootsteps()
     {
@@ -87,5 +104,31 @@ public class PlanetWalkingV2 : MonoBehaviour
     void Footsteps()
     {
         SoundManager.Play("floor");
+    }
+
+    // --------- OBJECT / COLLECTABLE SECTION
+
+    void TrySelectObject()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, selectableLayer))
+        {
+            GameObject hitObject = hit.collider.gameObject;
+            
+            if (selectableObjects.Contains(hitObject))
+            {
+                CollectableSO item = hitObject.GetComponent<CollectableSO>();
+
+                if (item != null && item.itemName != null)
+                {
+                    Debug.Log("Clicked item:" + (item.itemName));
+                }
+                else
+                {
+                    Debug.Log("man u aint even clicking nun");
+                }
+            }
+        }
     }
 }

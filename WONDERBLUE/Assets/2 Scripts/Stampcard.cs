@@ -101,8 +101,10 @@ public class Stampcard : MonoBehaviour
 
     public void AmendQuest()
     {
-        if (stampButton.stampComplete)
-            return;
+        Debug.Log("AmendQuest called, status is: " + stampStatus);
+        
+        //if (stampButton.stampComplete)
+         //   return;
 
         stampcardInfo.text = stampButton.questSO.questDescription;
 
@@ -125,11 +127,9 @@ public class Stampcard : MonoBehaviour
                 break;
 
             case StampStatus.Claimable:
-
-                if (!stampButton.questSO.questComplete)
-                    return;
                 
-                stampStatus = StampStatus.Claimable;
+                stampStatus = StampStatus.Completed;
+                stampButton.stampComplete = true;
                 stampButton.buttonImage.sprite = stampButton.spriteClaim;
                 locationName.text = "Talk to Mawiri";
                 locationDesc.text = "Task complete! Go back to Mawiri to claim your stamp!";
@@ -137,12 +137,10 @@ public class Stampcard : MonoBehaviour
                 break;
             
             case StampStatus.Completed:
-
-                if (stampStatus != StampStatus.Claimable)
-                    return;
                 
                 stampStatus = StampStatus.Completed;
                 stampButton.buttonImage.sprite = stampButton.spriteComplete;
+                stampButton.stampComplete = true;
                 stampButton.questSO.questComplete = true;
                 HideQuestObjects();
                 
